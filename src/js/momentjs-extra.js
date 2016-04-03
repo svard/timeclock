@@ -1,0 +1,1 @@
+Moment.prototype.isoWeeksInYear = function() {};

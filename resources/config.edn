@@ -1,0 +1,4 @@
+{:http {:port #immuconf/default 8080}
+ :database {:host #immuconf/override "Mongodb host IP"
+            :port #immuconf/default 27017
+            :dbname #immuconf/override "Mongodb database name"}}

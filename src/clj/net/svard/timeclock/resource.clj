@@ -3,6 +3,7 @@
             [io.clojure.liberator-transit :as lt]
             [cognitect.transit :as transit]
             [om.next.server :as om]
+            [clj-time.coerce :as coerce]
             [net.svard.timeclock.report :as report]
             [net.svard.timeclock.parser :as parser])
   (:import [org.joda.time ReadableInstant]))
@@ -12,6 +13,11 @@
     (constantly "m")
     (fn [v] (-> ^ReadableInstant v .getMillis))
     (fn [v] (-> ^ReadableInstant v .getMillis .toString))))
+
+(def joda-time-reader
+  (transit/read-handler
+    (fn [v]
+      (coerce/from-long (read-string v)))))
 
 (defresource get-one-report [{:keys [params services] :as request}]
   :available-media-types ["application/transit+json"]
@@ -45,7 +51,7 @@
 
   :post! (fn [_]
            (let [{db :db} services]
-             {:props ((om/parser {:read parser/readf}) {:db db} body-params)}))
+             {:props ((om/parser {:read parser/readf :mutate parser/mutatef}) {:db db} body-params)}))
 
   :handle-created :props
 

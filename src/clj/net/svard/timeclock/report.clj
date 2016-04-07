@@ -1,13 +1,15 @@
 (ns net.svard.timeclock.report
-  (:refer-clojure :exclude [get])
+  (:refer-clojure :exclude [get update])
   (:require [monger.collection :as mc]
+            [monger.operators :refer [$set]]
+            [monger.result :as result]
             [monger.joda-time]
             [clj-time.coerce :as coerce]
-            [clj-time.format :as format])
+            [clj-time.format :as format]
+            [clojure.tools.logging :as log])
   (:import [org.bson.types ObjectId]))
 
 (defonce coll "reports")
-(def date-time-no-ms (format/formatters :date-time-no-ms))
 
 (defn- string->object-id [object-id]
   (try
@@ -19,8 +21,8 @@
 
 (defn get [db id]
   (when-let [object-id (string->object-id id)]
-      (-> (mc/find-map-by-id db coll object-id)
-          (update :_id object-id->str))))
+    (-> (mc/find-map-by-id db coll object-id)
+        (clojure.core/update :_id object-id->str))))
 
 (defn get-by-week [db year week]
   (->> (mc/aggregate db coll [{"$project" {:total "$total"
@@ -36,4 +38,14 @@
                                            :leave "$leave"
                                            :lunch "$lunch"}}
                               {"$sort" {"arrival" 1}}])
-       (map #(update % :_id object-id->str))))
+       (map #(clojure.core/update % :_id object-id->str))))
+
+(defn update [db {:keys [_id] :as params}]
+  (let [doc (dissoc params :_id)
+        success? (-> (mc/update-by-id db coll (ObjectId. ^String _id) {$set doc})
+                     (result/updated-existing?))]
+    (case success?
+      true true
+      false (do
+              (log/error "Failed to update existing document, id" _id ", doc" doc)
+              false))))

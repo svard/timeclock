@@ -9,3 +9,12 @@
   [{:keys [db query]} k {:keys [year week] :as params}]
   (log/info "Parsing" k query params)
   {:value (vec (report/get-by-week db year week))})
+
+(defmulti mutatef om/dispatch)
+
+(defmethod mutatef 'report/update
+  [{:keys [db query]} k params] 
+  (log/info "Transact" params) 
+  {:value {:keys [:total]}
+   :action (fn []
+             (report/update db params))})

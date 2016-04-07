@@ -1,3 +1,28 @@
 .table-header {
     text-align: center;
 }
+
+.view {
+    display: block;
+}
+
+.edit {
+    display: none;
+}
+
+td.editing .view {
+    display: none;
+}
+
+td.editing .edit {
+    display: block;
+    width: 100px;
+}
+
+.center-cell {
+    vertical-align: middle !important;
+}
+
+.margin-small {
+    margin: 6px;
+}

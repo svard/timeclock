@@ -26,7 +26,8 @@
 (defn handler [services]
   (-> app-routes
       (wrap-defaults (assoc site-defaults :security false))
-      (wrap-transit-json-params)
+      (wrap-transit-json-params {:options {:handlers
+                                           {"m" resource/joda-time-reader}}})
       (wrap-service services)
       (wrap-reload)))
 

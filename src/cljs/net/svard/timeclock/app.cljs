@@ -28,28 +28,22 @@
 (defui App
   static om/IQueryParams
   (params [this]
-    (let [now (js/moment)]
+    (let [now (date/new-date)]
       {:year (date/year now) :week (date/week now)}))
   
   static om/IQuery
   (query [this]
-    `[({:timeclock/reports ~(om/get-query Row)} {:year ~'?year :week ~'?week}) :app/date])
+    `[({:timeclock/reports ~(om/get-query Row)} {:year ~'?year :week ~'?week}) :timeclock/date])
   
   Object
   (next-week [this]
-    (om/transact! this '[(week/increment)])
-    ;; (om/update-query! this (fn [q]
-    ;;                          (update q :params date/incr-week)))
-    )
+    (om/transact! this '[(week/increment)]))
 
   (previous-week [this]
-    (om/transact! this '[(week/decrement)])
-    ;; (om/update-query! this (fn [q]
-    ;;                          (update q :params date/decr-week)))
-    )
+    (om/transact! this '[(week/decrement)]))
   
   (render [this]
-    (let [{:keys [timeclock/reports app/date]} (om/props this)]
+    (let [{:keys [timeclock/reports timeclock/date]} (om/props this)]
       (dom/div #js {:style #js {:paddingTop "70px"}}
         (topnav {:brand "Timeclock"})
         (dom/div #js {:className "container"}
@@ -59,9 +53,12 @@
           (dom/h4 #js {:className "table-header"} (str "Week " (:week date) " " (:year date)))
           (report-table reports)
           (pager nil
-            (page-item #js {:onSelect #(.previous-week this)}
+            (page-item #js {:className "margin-small"
+                            :onSelect #(.previous-week this)}
               (dom/i #js {:className "glyphicon glyphicon-chevron-left"}))
-            (page-item #js {:onSelect #(.next-week this)}
+            (page-item #js {:className "margin-small"
+                            :onSelect #(.next-week this)
+                            :disabled (= date {:year (date/year (date/new-date)) :week (date/week (date/new-date))})}
               (dom/i #js {:className "glyphicon glyphicon-chevron-right"}))))))))
 
 (def app (om/factory App))

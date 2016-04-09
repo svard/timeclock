@@ -4,10 +4,20 @@
             [net.svard.timeclock.date :as date])
   (:import [goog.net XhrIo]))
 
+(defonce target-seconds 27900)
+
+(defn diff [seconds]
+  (- seconds target-seconds))
+
+(defn add-sign [x]
+  (cond
+    (<= x 0) (str x)
+    (> x 0) (str "+" x)))
+
 (defn- transit-date-reader [v]
   (date/new-date (js/parseInt v)))
 
-(def transit-date-writer
+(def ^:private transit-date-writer
   (t/write-handler
     (constantly "m")
     (fn [v] (.valueOf (.-moment v)))

@@ -2,28 +2,36 @@
   (:require [cljsjs.moment]))
 
 (defprotocol ISO8601DateFormat
-  (to-date-string [this])
-  (to-time-string [this]))
+  (-to-date-string [this])
+  (-to-time-string [this]))
 
-(extend-protocol ISO8601DateFormat
-  js/Date
-  (to-date-string [this]
-    (let [month (inc (.getMonth this))
-          day (.getDate this)]
-      (str (.getFullYear this) "-" (if (< month 10) (str "0" month) month) "-" (if (< day 10) (str "0" day) day))))
-
-  (to-time-string [this]
-    (let [hours (.getHours this)
-          minutes (.getMinutes this)
-          seconds (.getSeconds this)]
-      (str (if (< hours 10) (str "0" hours) hours) ":" (if (< minutes 10) (str "0" minutes) minutes) ":" (if (< seconds 10) (str "0" seconds) seconds)))))
+(defprotocol IDateUnit
+  (-inc [this])
+  (-dec [this])
+  (-map [this])
+  (-unixtimestamp [this]))
 
 (deftype Date [moment]
+  IDateUnit
+  (-inc [this]
+    (.add (.-moment this) 1 "w")
+    this)
+  (-dec [this]
+    (.subtract (.-moment this) 1 "w")
+    this)
+  (-map [this]
+    {:year (.year (.-moment this)) :week (.isoWeek (.-moment this))})
+  (-unixtimestamp [this]
+    (.valueOf (.-moment this))) 
+  IEquiv
+  (-equiv [this other] 
+    (and (instance? Date other)
+      (= (:year (-map this)) (:year (-map other)))
+      (= (:week (-map this)) (:week (-map other))))) 
   ISO8601DateFormat
-  (to-date-string [this]
+  (-to-date-string [this]
     (.format (.-moment this) "YYYY-MM-DD"))
-
-  (to-time-string [this] 
+  (-to-time-string [this] 
     (.format (.-moment this) "HH:mm:ss")))
 
 (defn new-date
@@ -33,10 +41,10 @@
    (->Date (js/moment timestamp))))
 
 (defn print-date [date]
-  (to-date-string date))
+  (-to-date-string date))
 
 (defn print-time [date]
-  (to-time-string date))
+  (-to-time-string date))
 
 (defn print-date-time [date]
   (str (print-date date) " " (print-time date)))
@@ -49,29 +57,32 @@
 (defn hour->second [hour]
   (* hour 3600))
 
-(defn year [date]
-  (.year (.-moment date)))
-
-(defn week [date]
-  (.isoWeek (.-moment date)))
-
 (defn weeks-in-year [year]
   (.isoWeeksInYear (js/moment (str year "-01-01"))))
 
-(defn incr-week [{:keys [year week]}]
+(defn year [date]
+  (:year (-map date)))
+
+(defn week [date]
+  (:week (-map date)))
+
+(defn incr-query-params [{:keys [year week]}]
   (if (> (inc week) (weeks-in-year year))
     {:year (inc year) :week 1}
     {:year year :week (inc week)}))
 
-(defn decr-week [{:keys [year week]}]
+(defn decr-query-params [{:keys [year week]}]
   (if (< (dec week) 1)
     {:year (dec year) :week (weeks-in-year (dec year))}
     {:year year :week (dec week)}))
 
-(defn subtract [d1 d2]
-  (let [s1 (/ (.valueOf (.-moment d1)) 1000)
-        s2 (/ (.valueOf (.-moment d2)) 1000)]
-    (- s1 s2)))
+(defn incr-week [date]
+  (-inc date))
 
-(defn equal? [d1 d2]
-  (and (= (year d1) (year d2)) (= (week d1) (week d2))))
+(defn decr-week [date]
+  (-dec date))
+
+(defn subtract [d1 d2]
+  (let [s1 (/ (-unixtimestamp d1) 1000)
+        s2 (/ (-unixtimestamp d2) 1000)]
+    (- s1 s2)))

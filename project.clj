@@ -1,4 +1,4 @@
-(defproject timeclock "0.2.0"
+(defproject timeclock "0.3.0"
   :description "FIXME: write description"
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
@@ -7,7 +7,7 @@
                  [org.clojure/clojure "1.8.0"]
                  [com.stuartsierra/component "0.3.1"]
                  [compojure "1.5.0"]
-                 [liberator "0.14.0"]
+                 [liberator "0.14.1"]
                  [cheshire "5.5.0"]
                  [io.clojure/liberator-transit "0.3.0"]
                  [ring/ring-defaults "0.2.0"]
@@ -15,7 +15,7 @@
                  [ring-middleware-format "0.7.0"]
                  [aleph "0.4.1-beta7"]
                  [org.clojure/tools.logging "0.3.1"]
-                 [ch.qos.logback/logback-classic "1.1.6"]
+                 [ch.qos.logback/logback-classic "1.1.7"]
                  [com.novemberain/monger "3.0.2"]
                  [levand/immuconf "0.1.0"]
                  [clj-time "0.11.0"]
@@ -25,7 +25,7 @@
                  [org.clojure/clojurescript "1.8.40"]
                  [org.omcljs/om "1.0.0-alpha31"]
                  [cljsjs/react-bootstrap "0.28.1-1" :exclusions [org.webjars.bower/jquery]]
-                 [cljsjs/moment "2.10.6-3"]
+                 [cljsjs/moment "2.10.6-4"]
                  [com.cognitect/transit-cljs "0.8.237"]]
 
   :plugins [[lein-cljsbuild "1.1.3"]
@@ -63,7 +63,7 @@
   :profiles
   {:dev {:dependencies [[com.cemerick/piggieback "0.2.1"] 
                         [org.clojure/tools.nrepl "0.2.12"]
-                        [refactor-nrepl "2.0.0"]]}
+                        [refactor-nrepl "2.2.0"]]}
    :uberjar {:aot [net.svard.timeclock]
              :prep-tasks ["compile" ["cljsbuild" "once" "min"]]}}
 

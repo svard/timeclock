@@ -1,8 +1,9 @@
 (ns ^:figwheel-always net.svard.timeclock.app
   (:require [om.next :as om :refer-macros [defui]]
             [om.dom :as dom]
-            [net.svard.timeclock.component.table :refer [report-table Row]]
-            [net.svard.timeclock.date :as date]
+            [net.svard.timeclock.component.table :refer [report-table]]
+            [net.svard.timeclock.component.row :refer [Row]]
+            [net.svard.timeclock.date :as d]
             [cljsjs.react-bootstrap]))
 
 (enable-console-print!)
@@ -28,8 +29,8 @@
 (defui App
   static om/IQueryParams
   (params [this]
-    (let [now (date/new-date)]
-      {:year (date/year now) :week (date/week now)}))
+    (let [now (d/new-date)]
+      {:year (d/year now) :week (d/week now)}))
   
   static om/IQuery
   (query [this]
@@ -50,7 +51,7 @@
           (page-header nil
             (dom/span nil "Timeclock ")
             (dom/small nil "Ericsson"))
-          (dom/h4 #js {:className "table-header"} (str "Week " (:week date) " " (:year date)))
+          (dom/h4 #js {:className "table-header"} (str "Week " (d/week date) " " (d/year date)))
           (report-table reports)
           (pager nil
             (page-item #js {:className "margin-small"
@@ -58,7 +59,8 @@
               (dom/i #js {:className "glyphicon glyphicon-chevron-left"}))
             (page-item #js {:className "margin-small"
                             :onSelect #(.next-week this)
-                            :disabled (= date {:year (date/year (date/new-date)) :week (date/week (date/new-date))})}
+                            :disabled (= date (d/new-date))
+                            }
               (dom/i #js {:className "glyphicon glyphicon-chevron-right"}))))))))
 
 (def app (om/factory App))

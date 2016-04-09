@@ -12,7 +12,8 @@
 (enable-console-print!)
 
 (def init-data
-  {:timeclock/date {:year (date/year (date/new-date)) :week (date/week (date/new-date))}})
+  {:timeclock/date (date/new-date) ;;{:year (date/year (date/new-date)) :week (date/week (date/new-date))}
+   })
 
 (defn on-js-reload []
   (println "Reload"))
@@ -22,8 +23,8 @@
     {:state init-data
      :parser (om/parser {:read parser/read :mutate parser/mutate})
      :remotes [:remote]
-     ;; :send (utils/transit-post "http://localhost:8086/api")
-     :send (utils/transit-post "/api")
+     :send (utils/transit-post "http://localhost:8086/api")
+     ;; :send (utils/transit-post "/api")
      }))
 
 (om/add-root! reconciler app/App (gdom/getElement "app"))

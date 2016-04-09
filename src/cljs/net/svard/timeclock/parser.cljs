@@ -25,7 +25,7 @@
    :action (fn []
              (swap! state update-in [:timeclock/date] date/incr-week)
              (om/update-query! component (fn [q]
-                                           (update q :params date/incr-week))))})
+                                           (update q :params date/incr-query-params))))})
 
 (defmethod mutate 'week/decrement
   [{:keys [state component]} _ _]
@@ -33,7 +33,7 @@
    :action (fn []
              (swap! state update-in [:timeclock/date] date/decr-week)
              (om/update-query! component (fn [q]
-                                           (update q :params date/decr-week))))})
+                                           (update q :params date/decr-query-params))))})
 (defmethod mutate 'report/update
   [{:keys [state ref ast]} _ new-props]
   (let [[_ id] ref]

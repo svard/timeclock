@@ -12,7 +12,6 @@ Some of the technologies used
 ## Todo
 * Authentication
 * Statistics page
-* Editable start and end dates
 
 ## License
 

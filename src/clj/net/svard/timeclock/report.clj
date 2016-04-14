@@ -49,3 +49,21 @@
       false (do
               (log/error "Failed to update existing document, id" _id ", doc" doc)
               false))))
+
+(defn stats [db]
+  (mc/aggregate db coll [{"$project" {:year {"$year" "$arrival"}
+                                      :total "$total"
+                                      :arrival "$arrival"}}
+                         {"$sort" {"total" 1}}
+                         {"$group" {:_id "$year"
+                                    :sum {"$sum" "$total"}
+                                    :avg {"$avg" "$total"}
+                                    :max {"$max" "$total"}
+                                    :min {"$min" "$total"}
+                                    :shortest {"$first" "$arrival"}
+                                    :longest {"$last" "$arrival"}}}
+                         {"$project" {:sum "$sum"
+                                      :avg "$avg"
+                                      :longest {:time "$max" :date "$longest"}
+                                      :shortest {:time "$min" :date "$shortest"}}}
+                         {"$sort" {"_id" 1}}]))

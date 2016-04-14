@@ -1,9 +1,9 @@
-(ns ^:figwheel-always net.svard.timeclock.component.table
+(ns ^:figwheel-always net.svard.timeclock.component.home-table
   (:require [om.next :as om :refer-macros [defui]]
             [om.dom :as dom]
             [net.svard.timeclock.date :as date]
             [net.svard.timeclock.utils :as utils]
-            [net.svard.timeclock.component.row :refer [row]]
+            [net.svard.timeclock.component.home-row :refer [row]]
             [cljsjs.react-bootstrap]))
 
 (def table (js/React.createFactory js/ReactBootstrap.Table))

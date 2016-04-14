@@ -5,10 +5,15 @@
 
 (defmulti readf om/dispatch)
 
-(defmethod readf :timeclock/reports
+(defmethod readf :home/reports
   [{:keys [db query]} k {:keys [year week] :as params}]
   (log/info "Parsing" k query params)
   {:value (vec (report/get-by-week db year week))})
+
+(defmethod readf :stats/content
+  [{:keys [db query]} k _]
+  (log/info "Parsing" k query)
+  {:value (vec (report/stats db))})
 
 (defmulti mutatef om/dispatch)
 

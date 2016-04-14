@@ -11,7 +11,7 @@ Some of the technologies used
 
 ## Todo
 * Authentication
-* Statistics page
+* Controls for quick jumping to a year and week
 
 ## License
 

@@ -26,7 +26,8 @@
                  [org.omcljs/om "1.0.0-alpha31"]
                  [cljsjs/react-bootstrap "0.28.1-1" :exclusions [org.webjars.bower/jquery]]
                  [cljsjs/moment "2.10.6-4"]
-                 [com.cognitect/transit-cljs "0.8.237"]]
+                 [com.cognitect/transit-cljs "0.8.237"]
+                 [bidi "2.0.6"]]
 
   :plugins [[lein-cljsbuild "1.1.3"]
             [lein-figwheel "0.5.2"]

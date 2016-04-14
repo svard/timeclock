@@ -10,9 +10,7 @@
             [net.svard.timeclock.resource :as resource]))
 
 (defroutes api-routes
-  (POST "/" [] resource/props)
-  (GET "/timereport" [] resource/get-reports)
-  (GET "/timereport/:id" [] resource/get-one-report))
+  (POST "/" [] resource/props))
 
 (defroutes app-routes
   (context "/api" [] api-routes)

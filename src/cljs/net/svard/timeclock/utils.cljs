@@ -1,5 +1,6 @@
 (ns ^:figwheel-always net.svard.timeclock.utils
   (:require [cognitect.transit :as t]
+            [om.next :as om]
             [cljsjs.moment]
             [net.svard.timeclock.date :as date])
   (:import [goog.net XhrIo]))
@@ -24,12 +25,12 @@
     (fn [v] (.valueOf (.-moment v)))))
 
 (defn transit-post [url]
-  (fn [{:keys [remote]} cb]
+  (fn [{:keys [remote]} cb] 
     (.send XhrIo url
       (fn [e]
         (this-as this
           (cb (t/read (t/reader :json {:handlers
-                                       {"m" transit-date-reader}}) (.getResponseText this)))))
+                                       {"m" transit-date-reader}}) (.getResponseText this)) remote)))
       "POST" (t/write (t/writer :json {:handlers
                                        {net.svard.timeclock.date.Date transit-date-writer}}) remote)
       #js {"Content-Type" "application/transit+json"})))

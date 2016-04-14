@@ -1,4 +1,4 @@
-(ns ^:figwheel-always net.svard.timeclock.component.row
+(ns ^:figwheel-always net.svard.timeclock.component.home-row
   (:require [om.next :as om :refer-macros [defui]]
             [om.dom :as dom]
             [net.svard.timeclock.date :as date]
@@ -15,7 +15,7 @@
     [:row/by_id _id])
   static om/IQuery
   (query [this]
-    '[:_id :arrival :leave :lunch :total])
+    [:_id :arrival :leave :lunch :total])
   
   Object
   (update-arrival [this date new-time]

@@ -1,4 +1,4 @@
-(defproject timeclock "0.3.0"
+(defproject timeclock "0.3.1"
   :description "FIXME: write description"
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
@@ -8,7 +8,7 @@
                  [com.stuartsierra/component "0.3.1"]
                  [compojure "1.5.0"]
                  [liberator "0.14.1"]
-                 [cheshire "5.5.0"]
+                 [cheshire "5.6.1"]
                  [io.clojure/liberator-transit "0.3.0"]
                  [ring/ring-defaults "0.2.0"]
                  [ring/ring-devel "1.4.0"]
@@ -23,7 +23,7 @@
 
                  ;; cljs
                  [org.clojure/clojurescript "1.8.40"]
-                 [org.omcljs/om "1.0.0-alpha31"]
+                 [org.omcljs/om "1.0.0-alpha32"]
                  [cljsjs/react-bootstrap "0.28.1-1" :exclusions [org.webjars.bower/jquery]]
                  [cljsjs/moment "2.10.6-4"]
                  [com.cognitect/transit-cljs "0.8.237"]

@@ -20,7 +20,6 @@
   Object
   (render [this]
     (let [{:keys [_id longest shortest avg sum]} (om/props this)]
-      (println _id)
       (dom/tr nil
         (dom/td nil _id)
         (date-cell longest)

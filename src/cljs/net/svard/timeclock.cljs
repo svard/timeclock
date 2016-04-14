@@ -60,8 +60,6 @@
   (render [this]
     (let [{:keys [app/route route/data]} (om/props this)
           active-component (get route/route->factory (first route))]
-      (println "Render Root")
-      (println "Data" data)
       (dom/div #js {:style #js {:paddingTop "70px"}}
         (header {:brand "Timeclock"})
         (dom/div #js {:className "container"}

@@ -36,7 +36,6 @@
 (defmethod read :stats/content
   [{:keys [state ast query]} key _]
   (let [st @state]
-    (println "stats/content")
     {:value (om/db->tree query (get st key) st)
      :remote ast}))
 

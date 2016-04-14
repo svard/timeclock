@@ -29,14 +29,11 @@
 (defn- listen [component]
   (events/listen history EventType.NAVIGATE
     (fn [e]
-      (println "route change")
       (match-route component (.-token e)))))
 
 (defn start-router [component]
   (listen component)
-  (.setEnabled history true)
-  ;; (match-route component (.getToken history))
-  )
+  (.setEnabled history true))
 
 (defn get-route []
   (:handler (bidi/match-route routes (.getToken history))))

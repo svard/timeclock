@@ -67,3 +67,11 @@
                                       :longest {:time "$max" :date "$longest"}
                                       :shortest {:time "$min" :date "$shortest"}}}
                          {"$sort" {"_id" 1}}]))
+
+(defn insert [db {:keys [workTime arrivalTime leaveTime lunchTime]}]
+  (let [arrival (coerce/from-long arrivalTime)
+        leave (coerce/from-long leaveTime)]
+    (mc/insert-and-return db coll {:total workTime
+                                   :lunch lunchTime
+                                   :arrival arrival
+                                   :leave leave})))

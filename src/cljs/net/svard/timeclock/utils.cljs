@@ -34,3 +34,7 @@
       "POST" (t/write (t/writer :json {:handlers
                                        {net.svard.timeclock.date.Date transit-date-writer}}) remote)
       #js {"Content-Type" "application/transit+json"})))
+
+(defn ceil [x]
+  (-> (.ceil js/Math (* x 100))
+      (/ 100)))

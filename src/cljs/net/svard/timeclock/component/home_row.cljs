@@ -53,7 +53,7 @@
                          {:value (date/second->hour lunch)}
                          {:update-fn #(.update-lunch this %)}))
         (dom/td #js {:className "center-cell"} (date/second->hour total))
-        (dom/td #js {:className "center-cell"} (/ (date/second->hour total) 2))
+        (dom/td #js {:className "center-cell"} (utils/ceil (/ (date/second->hour total) 2)))
         (dom/td #js {:className "center-cell"} (utils/add-sign d))))))
 
 (def row (om/factory Row))

@@ -4,13 +4,14 @@
             [compojure.route :as route]
             [ring.middleware.reload :refer [wrap-reload]]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
-            [ring.middleware.format-params :refer [wrap-transit-json-params]]
+            [ring.middleware.format-params :refer [wrap-restful-params]]
             [aleph.http :as http]
             [clojure.tools.logging :as log]
             [net.svard.timeclock.resource :as resource]))
 
 (defroutes api-routes
-  (POST "/" [] resource/props))
+  (POST "/" [] resource/props)
+  (POST "/timereport" [] resource/insert-report))
 
 (defroutes app-routes
   (context "/api" [] api-routes)
@@ -24,8 +25,9 @@
 (defn handler [services]
   (-> app-routes
       (wrap-defaults (assoc site-defaults :security false))
-      (wrap-transit-json-params {:options {:handlers
-                                           {"m" resource/joda-time-reader}}})
+      (wrap-restful-params {:formats [:transit-json :json-kw]
+                            :format-options {:transit-json {:handlers
+                                                            {"m" resource/joda-time-reader}}}})
       (wrap-service services)
       (wrap-reload)))
 

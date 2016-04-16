@@ -14,4 +14,6 @@
   Object
   (render [this]
     (let [{:keys [stats/content]} (om/props this)]
-      (stats-table content))))
+      (dom/div nil
+        (dom/h4 #js {:className "table-header"} "Statistics")
+        (stats-table content)))))

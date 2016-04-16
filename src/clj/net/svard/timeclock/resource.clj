@@ -4,6 +4,7 @@
             [cognitect.transit :as transit]
             [om.next.server :as om]
             [clj-time.coerce :as coerce]
+            [clojure.tools.logging :as log]
             [net.svard.timeclock.report :as report]
             [net.svard.timeclock.parser :as parser])
   (:import [org.joda.time ReadableInstant]))
@@ -56,3 +57,13 @@
   :handle-created :props
 
   :as-response (lt/as-response {:handlers {org.joda.time.DateTime joda-time-writer}}))
+
+(defresource insert-report [{:keys [services body-params] :as request}]
+  :available-media-types ["application/json"]
+
+  :allowed-methods [:post]
+
+  :post! (fn [_]
+           (let [{db :db} services
+                 doc (report/insert db body-params)]
+             (log/info "Inserted" doc))))

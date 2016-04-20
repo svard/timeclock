@@ -30,7 +30,8 @@
   Object
   (render [this]
     (let [{:keys [brand] :as props} (om/props this)]
-      (navbar #js {:fixedTop true}
+      (navbar #js {:fixedTop true
+                   :inverse true}
         (navbar-header nil
           (navbar-brand nil
             (dom/a #js {:href "#/"}
@@ -39,7 +40,8 @@
                             :width "24px"}))))
         (nav #js {:pullRight true}
           (nav-item #js {:href "#/"} "Home")
-          (nav-item #js {:href "#/stats"} "Statistics"))))))
+          (nav-item #js {:href "#/stats"} "Statistics")
+          (nav-item #js {:href "/logout"} "Sign out"))))))
 
 (def header (om/factory Header))
 
@@ -73,7 +75,6 @@
     {:state init-data
      :parser (om/parser {:read parser/read :mutate parser/mutate})
      :remotes [:remote]
-     ;; :send (utils/transit-post "http://localhost:8086/api")
      :send (utils/transit-post "/api")
      }))
 

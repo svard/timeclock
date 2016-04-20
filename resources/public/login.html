@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Timeclock</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+    crossorigin="anonymous">
+  <link href="css/app.css" rel="stylesheet" type="text/css">
+</head>
+
+<body style="padding-top: 50px">
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <a href="/login" class="navbar-brand">
+          <img src="images/logo.png" height="24px" width="24px"></img>
+        </a>
+      </div>
+      <div class="navbar-collapse collapse">
+        <form class="navbar-form navbar-right" method="POST" action="login">
+          <div class="form-group">
+            <input type="text" class="form-control" name="username" placeholder="User">
+          </div>
+          <div class="form-group">
+            <input type="password" class="form-control" name="password" placeholder="Password">
+          </div>
+          <button type="submit" class="btn btn-success">Sign in</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+  <div class="jumbotron">
+    <div class="container">
+      <h1>Timeclock</h1>
+      <p>Ericsson time reporting</p>
+    </div>
+  </div>
+</body>
+
+</html>

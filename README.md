@@ -10,7 +10,6 @@ Some of the technologies used
 * Data format [Transit] (https://github.com/cognitect/transit-clj)
 
 ## Todo
-* Authentication
 * Controls for quick jumping to a year and week
 
 ## License

@@ -2,10 +2,7 @@
   (:require [ring.util.response :as resp]
             [buddy.auth :as auth]
             [crypto.password.scrypt :as password]
-            [clojure.java.io :as io]
             [net.svard.timeclock.account :as account]))
-
-#_(def users {:kristofer "abc123"})
 
 (defn login [request]
   (let [db (get-in request [:services :db])
@@ -23,10 +20,11 @@
 ;;   (-> (resp/redirect "/")
 ;;       (assoc :session {:identity "kristofer"})))
 
-(defn allowed? [request]
-  (if (auth/authenticated? request)
-    (io/resource "public/index.html")
-    (resp/redirect "/login")))
+(defn allowed? [resource]
+  (fn [request]
+    (if (auth/authenticated? request)
+      resource
+      (resp/redirect "/login"))))
 
 (defn logout [request]
   (-> (resp/redirect "/login")

@@ -1,4 +1,4 @@
-(defproject timeclock "0.5.0"
+(defproject timeclock "0.6.0"
   :description "FIXME: write description"
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
@@ -20,7 +20,6 @@
                  [levand/immuconf "0.1.0"]
                  [clj-time "0.11.0"]
                  [com.cognitect/transit-clj "0.8.285"]
-                 [com.cemerick/friend "0.2.1" :exclusions [org.clojure/core.cache]]
                  [buddy/buddy-auth "0.12.0"]
                  [crypto-password "0.2.0"]
 

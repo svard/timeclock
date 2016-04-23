@@ -18,11 +18,11 @@
 (def auth-backend (backends/session))
 
 (defroutes api-routes
-  (POST "/" [] resource/props)
+  (POST "/" [] (auth/allowed? resource/props))
   (POST "/timereport" [] resource/insert-report))
 
 (defroutes app-routes
-  (GET "/" [] auth/allowed?)
+  (GET "/" [] (auth/allowed? (io/resource "public/index.html")))
   (GET "/login" [] (io/resource "public/login.html"))
   (POST "/login" [] auth/login)
   (GET "/logout" [] auth/logout)

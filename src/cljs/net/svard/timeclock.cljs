@@ -22,6 +22,8 @@
 (def navbar (js/React.createFactory js/ReactBootstrap.Navbar))
 (def navbar-header (js/React.createFactory js/ReactBootstrap.Navbar.Header))
 (def navbar-brand (js/React.createFactory js/ReactBootstrap.Navbar.Brand))
+(def navbar-toggle (js/React.createFactory js/ReactBootstrap.Navbar.Toggle))
+(def navbar-collapse (js/React.createFactory js/ReactBootstrap.Navbar.Collapse))
 (def nav (js/React.createFactory js/ReactBootstrap.Nav))
 (def nav-item (js/React.createFactory js/ReactBootstrap.NavItem))
 (def page-header (js/React.createFactory js/ReactBootstrap.PageHeader))
@@ -31,17 +33,21 @@
   (render [this]
     (let [{:keys [brand] :as props} (om/props this)]
       (navbar #js {:fixedTop true
-                   :inverse true}
+                   :bsStyle "inverse"
+                   :inverse true
+                   :className "navbar-blue"}
         (navbar-header nil
           (navbar-brand nil
             (dom/a #js {:href "#/"}
               (dom/img #js {:src "images/logo.png"
                             :height "24px"
-                            :width "24px"}))))
-        (nav #js {:pullRight true}
-          (nav-item #js {:href "#/"} "Home")
-          (nav-item #js {:href "#/stats"} "Statistics")
-          (nav-item #js {:href "/logout"} "Sign out"))))))
+                            :width "24px"})))
+          (navbar-toggle nil))
+        (navbar-collapse nil
+          (nav #js {:pullRight true}
+            (nav-item #js {:href "#/"} "Home")
+            (nav-item #js {:href "#/stats"} "Statistics")
+            (nav-item #js {:href "/logout"} "Sign out")))))))
 
 (def header (om/factory Header))
 

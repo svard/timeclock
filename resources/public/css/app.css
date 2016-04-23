@@ -27,9 +27,6 @@ td.editing .edit {
     margin: 6px;
 }
 
-.jumbotron {
-    padding-top: 48px;
-    padding-bottom: 48px;
-    margin-bottom: 30px;
-    background-color: #eee;
+.navbar-blue {
+    background-color: #00285e;
 }

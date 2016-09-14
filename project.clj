@@ -1,4 +1,4 @@
-(defproject timeclock "0.6.0"
+(defproject timeclock "0.7.0"
   :description "FIXME: write description"
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
@@ -6,34 +6,34 @@
   :dependencies [;; clj
                  [org.clojure/clojure "1.8.0"]
                  [com.stuartsierra/component "0.3.1"]
-                 [compojure "1.5.0"]
+                 [compojure "1.5.1"]
                  [liberator "0.14.1"]
-                 [cheshire "5.6.1"]
+                 [cheshire "5.6.3"]
                  [io.clojure/liberator-transit "0.3.0"]
-                 [ring/ring-defaults "0.2.0"]
-                 [ring/ring-devel "1.4.0"]
+                 [ring/ring-defaults "0.2.1"]
+                 [ring/ring-devel "1.5.0"]
                  [ring-middleware-format "0.7.0"]
-                 [aleph "0.4.1-beta7"]
+                 [aleph "0.4.2-alpha8"]
                  [org.clojure/tools.logging "0.3.1"]
                  [ch.qos.logback/logback-classic "1.1.7"]
-                 [com.novemberain/monger "3.0.2"]
+                 [com.novemberain/monger "3.0.2" :exclusions [com.google.guava/guava]]
                  [levand/immuconf "0.1.0"]
-                 [clj-time "0.11.0"]
-                 [com.cognitect/transit-clj "0.8.285"]
-                 [buddy/buddy-auth "0.12.0"]
+                 [clj-time "0.12.0"]
+                 [com.cognitect/transit-clj "0.8.288"]
+                 [buddy/buddy-auth "1.2.0"]
                  [crypto-password "0.2.0"]
 
                  ;; cljs
-                 [org.clojure/clojurescript "1.8.40"]
-                 [org.omcljs/om "1.0.0-alpha32"]
-                 [cljsjs/react-bootstrap "0.28.1-1" :exclusions [org.webjars.bower/jquery]]
+                 [org.clojure/clojurescript "1.9.229"]
+                 [org.omcljs/om "1.0.0-alpha44"]
+                 [cljsjs/react-bootstrap "0.30.2-0" :exclusions [org.webjars.bower/jquery]]
                  [cljsjs/moment "2.10.6-4"]
-                 [com.cognitect/transit-cljs "0.8.237"]
-                 [bidi "2.0.6"]]
+                 [com.cognitect/transit-cljs "0.8.239"]
+                 [bidi "2.0.10"]]
 
-  :plugins [[lein-cljsbuild "1.1.3"]
-            [lein-figwheel "0.5.2"]
-            [cider/cider-nrepl "0.12.0"]]
+  :plugins [[lein-cljsbuild "1.1.4"]
+            [lein-figwheel "0.5.7"]
+            [cider/cider-nrepl "0.13.0"]]
 
   :source-paths ["src/clj" "src/cljs"]
 

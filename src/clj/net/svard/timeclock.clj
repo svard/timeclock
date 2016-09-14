@@ -16,4 +16,5 @@
 
 (defn -main [& args]
   (.addShutdownHook (Runtime/getRuntime) (Thread. #(alter-var-root #'system component/stop)))
-  (alter-var-root #'system component/start))
+  (alter-var-root #'system component/start)
+  @(promise))

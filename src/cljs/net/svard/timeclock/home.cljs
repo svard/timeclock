@@ -9,7 +9,7 @@
 (enable-console-print!)
 
 (def pager (js/React.createFactory js/ReactBootstrap.Pager))
-(def page-item (js/React.createFactory js/ReactBootstrap.PageItem))
+(def page-item (js/React.createFactory js/ReactBootstrap.Pager.Item))
 (def table (js/React.createFactory js/ReactBootstrap.Table))
 
 (defn- row-context [context]

@@ -21,7 +21,7 @@
 (defn input [c update-fn]
   (dom/input #js {:ref "editField"
                   :className "form-control edit"
-                  :value (:edit-text (om/get-state c))
+                  :value (or (:edit-text (om/get-state c)) "")
                   :onChange #(change c %)
                   :onBlur #(om/set-state! c {:editing false})
                   :onKeyDown #(key-down c % update-fn)}))

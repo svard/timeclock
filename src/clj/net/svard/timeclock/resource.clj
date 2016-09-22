@@ -21,7 +21,7 @@
       (coerce/from-long (read-string v)))))
 
 (defresource get-one-report [{:keys [params services] :as request}]
-  :available-media-types ["application/transit+json"]
+  :available-media-types ["application/json"]
   
   :exists? (fn [_]
              (let [{db :db} services
@@ -36,7 +36,7 @@
   :as-response (lt/as-response {:handlers {org.joda.time.DateTime joda-time-writer}}))
 
 (defresource get-reports [{:keys [params services] :as request}]
-  :available-media-types ["application/transit+json"]
+  :available-media-types ["application/json"]
   
   :handle-ok (fn [_]
                (let [{db :db} services

@@ -1,10 +1,10 @@
-(defproject timeclock "0.7.0"
-  :description "FIXME: write description"
+(defproject timeclock "0.8.0"
+  :description "Manage work time"
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [;; clj
-                 [org.clojure/clojure "1.8.0"]
+                 [org.clojure/clojure "1.9.0-alpha12"]
                  [com.stuartsierra/component "0.3.1"]
                  [compojure "1.5.1"]
                  [liberator "0.14.1"]
@@ -16,7 +16,7 @@
                  [aleph "0.4.2-alpha8"]
                  [org.clojure/tools.logging "0.3.1"]
                  [ch.qos.logback/logback-classic "1.1.7"]
-                 [com.novemberain/monger "3.0.2" :exclusions [com.google.guava/guava]]
+                 [com.novemberain/monger "3.1.0" :exclusions [com.google.guava/guava]]
                  [levand/immuconf "0.1.0"]
                  [clj-time "0.12.0"]
                  [com.cognitect/transit-clj "0.8.288"]

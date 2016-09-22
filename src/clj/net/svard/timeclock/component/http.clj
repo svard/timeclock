@@ -7,6 +7,7 @@
             [ring.middleware.format-params :refer [wrap-restful-params]]
             [ring.util.response :as resp]
             [aleph.http :as http]
+            [aleph.netty :as netty]
             [clojure.tools.logging :as log]
             [ring.middleware.session :refer [wrap-session]]
             [buddy.auth.backends :as backends]
@@ -19,6 +20,8 @@
 
 (defroutes api-routes
   (POST "/" [] (auth/allowed? resource/props))
+  (GET "/timereport" [] resource/get-reports)
+  (GET "/timereport/:id" [] resource/get-one-report)
   (POST "/timereport" [] resource/insert-report))
 
 (defroutes app-routes
